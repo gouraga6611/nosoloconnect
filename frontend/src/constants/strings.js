@@ -16,89 +16,92 @@ export const NAV = {
 };
 
 export const HERO = {
-  eyebrow: "For the ones who wander",
+  eyebrow: "Made in India · For India first",
   title: "Travel Solo.",
   titleAccent: "Never Feel Alone.",
   subtitle:
-    "NoSolo connects verified solo travelers to explore the world together — anonymously at first, safely always.",
+    "From Manali to Meghalaya, Goa to Gokarna — NoSolo connects verified Indian solo travelers to explore together. Anonymously at first, safely always. Global rollout coming next.",
   primaryCta: "Send us feedback",
   secondaryCta: "Explore how it works",
   stats: [
-    { value: "128+", label: "Countries covered" },
-    { value: "42k", label: "Verified travelers" },
+    { value: "28", label: "Indian states covered" },
+    { value: "12k+", label: "Verified travelers" },
     { value: "4.9", label: "Community rating" },
   ],
 };
 
 export const FEATURES = {
   eyebrow: "What makes us different",
-  heading: "A safer way to share the road",
+  heading: "A safer way to share the road across India",
   intro:
-    "Anonymous trip posting, verified profiles and a companionship system built around trust.",
+    "Anonymous trip posting, Aadhaar-backed KYC and a companionship system built around Indian travel realities — long-distance trains, monsoon treks, and the odd solo trip to a place your family has never heard of.",
   items: [
     {
       key: "anonymous",
       title: "Anonymous Posting",
       description:
-        "Post trips without revealing your identity. Reveal only when you accept a request.",
+        "Post a trip without revealing your identity. Reveal only when you accept a request — perfect for solo women travelers and first-timers.",
     },
     {
       key: "kyc",
-      title: "KYC Verified Profiles",
+      title: "Aadhaar / ID Verified",
       description:
-        "Government ID and selfie checks keep the community authentic and accountable.",
+        "Aadhaar, PAN or passport plus a selfie check. Every companion on the platform is a real, accountable person.",
     },
     {
       key: "matching",
-      title: "Compatibility Matching",
+      title: "Match Your Style",
       description:
-        "Filter by travel style, budget, dates and interests to find your best-fit companion.",
+        "Filter by destination, budget in ₹, dates, food preference and travel pace to find your best-fit companion.",
     },
     {
       key: "chat",
       title: "In-App Chat",
       description:
-        "One-to-one and group chat unlocks after both sides accept the trip request.",
+        "One-to-one and group chat unlocks after both sides accept the request. WhatsApp-familiar, moderated for safety.",
     },
     {
       key: "sos",
       title: "Emergency SOS",
       description:
-        "Share live location with trusted contacts and reach help in a single tap.",
+        "One-tap SOS shares live location with trusted contacts and connects to 112 India emergency helpline.",
     },
     {
       key: "reviews",
       title: "Trust Ratings",
       description:
-        "Post-trip reviews on safety, friendliness and reliability build a lasting reputation.",
+        "Post-trip reviews on safety, friendliness and reliability build a lasting reputation on the platform.",
     },
   ],
 };
 
 export const SAFETY = {
   eyebrow: "Safety first",
-  heading: "Built for travelers who want the freedom of going alone — never the risk.",
+  heading: "Built for Indian solo travelers who want the freedom of going alone — never the risk.",
   bullets: [
-    "Government ID + selfie verification for every host",
-    "AI moderation on chats and listings, 24/7",
+    "Aadhaar + selfie verification for every host",
+    "AI + human moderation on chats and listings, 24/7 IST",
     "Admin oversight on every anonymous trip",
     "Report, block and community-review controls",
+    "One-tap 112 emergency helpline integration",
   ],
   imageAlt: "Solo traveler at sunset",
 };
 
 export const ABOUT = {
   eyebrow: "Our mission",
-  heading: "To be the most trusted global platform for solo travelers.",
+  heading: "India first. Then, the world.",
   paragraph:
-    "We started NoSolo because the best trips shouldn't be the ones you miss for lack of a companion. Whether you are a backpacker, a digital nomad or a first-time solo traveler, NoSolo helps you find people who move at your pace, respect your privacy and share your curiosity.",
+    "We started NoSolo because the best trips in India — the sunrise at Nandi Hills, a solo Vipassana in Igatpuri, a backpacking loop through Spiti — shouldn't be the ones you miss for lack of a companion. We're launching for Indian travelers first, learning fast, and then taking NoSolo global. Whether you are a Bengaluru techie planning a weekend to Coorg, a Delhi backpacker heading to Ladakh, or a solo woman traveler making her first trip — NoSolo helps you find people who move at your pace, respect your privacy and share your curiosity.",
   audience: [
+    "Indian Solo Travelers",
+    "Female Solo Travelers",
     "Backpackers",
     "Digital Nomads",
-    "Students",
+    "College Students",
     "Working Professionals",
-    "Female Solo Travelers",
     "Weekend Explorers",
+    "Trekkers & Bikers",
   ],
 };
 
@@ -109,11 +112,11 @@ export const CONTACT = {
     "Report a bug, request a feature, or ask us anything. Every message reaches a real human on the team.",
   form: {
     nameLabel: "Full name",
-    namePh: "Ada Kaur",
+    namePh: "Aarav Sharma",
     emailLabel: "Email",
     emailPh: "you@example.com",
     phoneLabel: "Phone (optional)",
-    phonePh: "+1 415 555 0123",
+    phonePh: "+91 98XXX XXXXX",
     typeLabel: "Category",
     priorityLabel: "Priority",
     subjectLabel: "Subject",
@@ -123,7 +126,7 @@ export const CONTACT = {
     submit: "Submit message",
     submitting: "Sending…",
     successTitle: "Thanks — message received",
-    successDesc: "We usually reply within one working day.",
+    successDesc: "We usually reply within one working day (IST).",
     errorTitle: "Could not send",
     errorDesc: "Please try again in a moment.",
     requiredError: "This field is required.",
@@ -146,7 +149,7 @@ export const FOOTER = {
       links: ["Privacy", "Terms", "Community Guidelines"],
     },
   ],
-  madeWith: "Made for solo travelers, everywhere.",
+  madeWith: "Made in India · For Indian solo travelers first, the world next.",
 };
 
 export const ADMIN = {
