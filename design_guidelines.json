@@ -1,0 +1,124 @@
+{
+  "theme": "hybrid",
+  "project_context": {
+    "name": "NoSolo",
+    "tagline": "Travel Solo. Never Feel Alone.",
+    "vibe": "Clean modern travel",
+    "target_audience": "Backpackers, digital nomads, students, female solo travelers"
+  },
+  "typography": {
+    "headings": {
+      "font_family": "'Cabinet Grotesk', sans-serif",
+      "import_url": "https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,500,700,400&display=swap",
+      "weights": ["400", "500", "700", "800"],
+      "usage": "H1-H4 must use tight letter spacing (tracking-tight). Do not use generic fonts like Inter."
+    },
+    "body": {
+      "font_family": "'Manrope', sans-serif",
+      "import_url": "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap",
+      "weights": ["400", "500", "600"],
+      "usage": "Use for all body text, form inputs, and admin data tables. Ensure high readability."
+    }
+  },
+  "colors": {
+    "primary": "#0EA5E9",
+    "secondary": "#10B981",
+    "background_light": "#F8FAFC",
+    "background_dark": "#0A192F",
+    "surface_light": "#FFFFFF",
+    "surface_dark": "#112240",
+    "text_primary": "#0A192F",
+    "text_secondary": "#64748B",
+    "admin_badges": {
+      "priority_urgent": "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
+      "priority_high": "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400",
+      "priority_medium": "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400",
+      "priority_low": "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
+      "status_open": "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
+      "status_closed": "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-400"
+    },
+    "rules": [
+      "Never use pure black or gray; always tint darks with Navy (#0A192F).",
+      "Ensure text over images has contrast (use text-shadow or gradient overlay max bg-black/40).",
+      "Do NOT use transparent backgrounds for headers or overlays."
+    ]
+  },
+  "layouts_and_grids": {
+    "marketing_landing": {
+      "hero": "Immersive full-screen or 80vh layout with background image. Left-aligned typography. Use max overlay bg-black/40. Let the image breathe.",
+      "features": "Mode A: 'Tetris' Bento Grid. Asymmetrical spans (col-span-8, col-span-4). Wide gaps (gap-8).",
+      "spacing": "Generous spacing. py-24 or py-32 for sections."
+    },
+    "admin_dashboard": {
+      "layout": "High Density Grid. Sharp edges or max 8px border-radius.",
+      "table": "Dense padding, 1px subtle border, clear columns for Feedback/Support data.",
+      "spacing": "Tight gaps (gap-4). Full screen height utilization."
+    }
+  },
+  "components": {
+    "buttons": "Pill-shaped (rounded-full) or slightly rounded (rounded-lg). Smooth hover transitions with color shifts.",
+    "cards": "Subtle 1px border. Do not overuse drop shadows. Hover: slight lift (-translate-y-1).",
+    "forms": "Use Shadcn Form components. Thick inputs (h-12). Clearly visible focus states (ring-2 ring-sky-500).",
+    "navigation": "Sticky header MUST have Glassmorphism (backdrop-blur-xl bg-white/70 or bg-[#0A192F]/80). No transparent headers.",
+    "toasts": "Use Sonner for all form submission feedback. Implement in /app/frontend/src/components/ui/sonner.js.",
+    "admin_login": "Simple centered card modal with password input and submit button."
+  },
+  "motion_and_interactions": {
+    "libraries": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "rules": [
+      "Use framer-motion for subtle entrance animations (fade up, stagger children).",
+      "No 'transition: all'. Explicitly define transitions (e.g., transition-colors, transition-transform).",
+      "Hover states must always shift color and optionally lift."
+    ]
+  },
+  "accessibility": {
+    "test_ids": [
+      "All interactive elements MUST have data-testid attributes.",
+      "Examples: data-testid='hero-cta-button', data-testid='feedback-form-submit', data-testid='admin-password-input', data-testid='admin-table-row', data-testid='close-ticket-btn'."
+    ],
+    "contrast": "Maintain 4.5:1 ratio for normal text. Use dark text on light backgrounds."
+  },
+  "image_urls": {
+    "hero_background": {
+      "url": "https://images.pexels.com/photos/562623/pexels-photo-562623.jpeg",
+      "description": "Woman with a backpack enjoying a peaceful walk on a forest boardwalk at sunset. Represents solo travel.",
+      "category": "hero"
+    },
+    "about_section": {
+      "url": "https://images.pexels.com/photos/12650678/pexels-photo-12650678.jpeg",
+      "description": "Woman working on a laptop outside a cafe. Vibe for digital nomads.",
+      "category": "about"
+    },
+    "abstract_texture": {
+      "url": "https://images.pexels.com/photos/38251243/pexels-photo-38251243.jpeg",
+      "description": "Topographic map texture for background elements or features section.",
+      "category": "texture"
+    }
+  },
+  "instructions_to_main_agent": [
+    "Build out the static site using React (.js files, NOT .tsx), Tailwind CSS, and Shadcn UI.",
+    "Implement Firebase Hosting and Firestore configuration (use stubs for now).",
+    "Create the Landing Page with Hero, Features (bento grid), Safety, About, and CTA to forms.",
+    "Create Reusable Form component for both Feedback and Support with Shadcn form + sonner toast.",
+    "Create Admin '/support' page: gated by password 'Nosolo!23'. Use a Shadcn Table with badges for priority and status.",
+    "Implement 'Mark as Closed' and 'Delete' functionalities for tickets (stubbed or functional via Firebase).",
+    "Enforce all UI/UX rules: use data-testid on every button/input, do NOT use default generic fonts like Inter, do not center text globally, use provided Unsplash/Pexels image URLs.",
+    "Use framer-motion for smooth staggered page loads."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "You tend to converge toward generic, 'on distribution' outputs. Make creative, distinctive frontends that surprise and delight.",
+    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients.",
+    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
+    "Create depth through layered design elements with z-index hierarchy.",
+    "Use glass-morphism effects with backdrop filters (12-24px blur).",
+    "You MUST NOT apply universal transition. Eg: transition: all. Always add transitions for specific interactive elements excluding transforms.",
+    "You MUST NOT center align the app container, ie do not add .App { text-align: center; } in the css file.",
+    "Always use modern button styles like pill-shaped, or sharp button with interaction animations & color relevant to the app style.",
+    "NEVER: use AI assistant Emoji characters like 🤖🧠💭💡🔮🎯 etc for icons. Use lucide-react.",
+    "Every interaction needs micro-animations - hover states, transitions, parallax effects.",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap."
+  ]
+}
