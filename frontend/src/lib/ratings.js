@@ -26,6 +26,7 @@ import {
   LOCAL_STORAGE_RATINGS_KEY,
   RATING_DIMENSIONS,
 } from "@/constants/config";
+import { emit, EVENTS } from "@/lib/events";
 
 const readLocal = () => {
   try {
@@ -66,6 +67,7 @@ export const submitRating = async ({ user, dimensions, comment }) => {
   if (firebaseEnabled && db) {
     // uid as document ID → one rating per user, upsertable.
     await setDoc(doc(db, FIRESTORE_RATINGS_COLLECTION, user.uid), record);
+    emit(EVENTS.RATINGS_CHANGED);
     return { id: user.uid, ...record };
   }
 
@@ -74,6 +76,7 @@ export const submitRating = async ({ user, dimensions, comment }) => {
   const withId = { id: user.uid, ...record };
   items.unshift(withId);
   writeLocal(items);
+  emit(EVENTS.RATINGS_CHANGED);
   return withId;
 };
 

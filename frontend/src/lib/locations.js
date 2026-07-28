@@ -20,6 +20,7 @@ import {
   FIRESTORE_LOCATIONS_COLLECTION,
   LOCAL_STORAGE_LOCATIONS_KEY,
 } from "@/constants/config";
+import { emit, EVENTS } from "@/lib/events";
 
 const readLocal = () => {
   try {
@@ -50,12 +51,14 @@ export const addLocation = async ({ place, state, country }) => {
       collection(db, FIRESTORE_LOCATIONS_COLLECTION),
       record,
     );
+    emit(EVENTS.LOCATIONS_CHANGED);
     return { id: ref.id, ...record };
   }
   const items = readLocal();
   const withId = { id: genId(), ...record };
   items.unshift(withId);
   writeLocal(items);
+  emit(EVENTS.LOCATIONS_CHANGED);
   return withId;
 };
 
@@ -74,9 +77,11 @@ export const listLocations = async () => {
 export const deleteLocation = async (id) => {
   if (firebaseEnabled && db) {
     await deleteDoc(doc(db, FIRESTORE_LOCATIONS_COLLECTION, id));
+    emit(EVENTS.LOCATIONS_CHANGED);
     return;
   }
   writeLocal(readLocal().filter((l) => l.id !== id));
+  emit(EVENTS.LOCATIONS_CHANGED);
 };
 
 // -- Derived helpers ----------------------------------------------------------

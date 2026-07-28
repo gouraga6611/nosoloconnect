@@ -14,6 +14,7 @@ import {
 } from "firebase/auth";
 import { auth, googleProvider, firebaseEnabled } from "@/lib/firebase";
 import { LOCAL_STORAGE_AUTH_USER_KEY } from "@/constants/config";
+import { emit, EVENTS } from "@/lib/events";
 
 // -- Read/write stub user in localStorage --------------------------------------
 const readStubUser = () => {
@@ -63,6 +64,7 @@ export const signInDemo = async ({ name, email }) => {
     provider: "demo",
   };
   writeStubUser(user);
+  emit(EVENTS.AUTH_CHANGED, user);
   return user;
 };
 
@@ -72,6 +74,7 @@ export const signOutUser = async () => {
     await fbSignOut(auth);
   }
   writeStubUser(null);
+  emit(EVENTS.AUTH_CHANGED, null);
 };
 
 /** Subscribe to auth changes. Returns an unsubscribe fn. */

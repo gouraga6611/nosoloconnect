@@ -104,13 +104,7 @@ const DemoSignInDialog = ({ open, onOpenChange, onSubmit }) => {
 
 // -- Aggregate summary card ---------------------------------------------------
 const RatingsSummaryCard = () => {
-  const { count, averageOverall, dimensionAvgs, refresh } = useRatingsSummary();
-
-  // Also refresh whenever a rating is submitted elsewhere (parent triggers)
-  useEffect(() => {
-    const t = setInterval(refresh, 4000);
-    return () => clearInterval(t);
-  }, [refresh]);
+  const { count, averageOverall, dimensionAvgs } = useRatingsSummary();
 
   return (
     <div className="nosolo-card p-8">
@@ -153,7 +147,7 @@ const RatingsSummaryCard = () => {
 };
 
 // -- Rating form (authed users only) ------------------------------------------
-const RatingForm = ({ user, onSubmitted }) => {
+const RatingForm = ({ user }) => {
   const [dims, setDims] = useState(emptyDims());
   const [comment, setComment] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -185,7 +179,8 @@ const RatingForm = ({ user, onSubmitted }) => {
         description: RATINGS.successToastDesc,
       });
       setAlreadyRated(true);
-      onSubmitted?.();
+      // No parent callback needed — submitRating() emits EVENTS.RATINGS_CHANGED
+      // and every useRatingsSummary consumer refreshes automatically.
     } catch {
       toast.error(RATINGS.errorToastTitle, {
         description: RATINGS.errorToastDesc,
@@ -273,7 +268,6 @@ const RatingForm = ({ user, onSubmitted }) => {
 export const RatingsSection = () => {
   const { user } = useAuthUser();
   const [demoOpen, setDemoOpen] = useState(false);
-  const { refresh: refreshSummary } = useRatingsSummary();
 
   const handleGoogleClick = async () => {
     if (firebaseEnabled) {
@@ -290,9 +284,7 @@ export const RatingsSection = () => {
   const handleDemoSubmit = async (payload) => {
     await signInDemo(payload);
     setDemoOpen(false);
-    // Force a re-mount of the auth hook by reloading — cheapest path in stub mode.
-    window.location.hash = "ratings";
-    window.location.reload();
+    // useAuthUser subscribes to EVENTS.AUTH_CHANGED and will pick this up.
   };
 
   return (
@@ -316,7 +308,7 @@ export const RatingsSection = () => {
           </div>
           <div className="lg:col-span-7">
             {user ? (
-              <RatingForm user={user} onSubmitted={refreshSummary} />
+              <RatingForm user={user} />
             ) : (
               <div className="nosolo-card p-10 flex flex-col items-start gap-6">
                 <p className="text-lg text-navy-soft">

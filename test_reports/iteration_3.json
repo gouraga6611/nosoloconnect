@@ -1,0 +1,41 @@
+{
+  "summary": "Re-test of NoSolo v3 focused on the 3 refresh-immediacy fixes from iteration_2. All 3 previously-flagged issues are now fully resolved via the new EventTarget-based pub/sub bus (lib/events.js). Verified end-to-end with Playwright against the public preview URL, with localStorage cleared between sub-scenarios. 8/8 immediacy checks and 7/7 locations/admin/landing sync checks pass.",
+  "tested_scope": ["frontend", "integration"],
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed": [
+    "Fresh landing hero: hero-stat-places=0, hero-stat-countries=0, hero-stat-rating='—'",
+    "Coverage search: 220ms debounce works; unknown query 'Zzzunknown' shows 'Not on NoSolo yet'",
+    "Demo sign-in (ratings-signin-btn -> dialog -> ratings-demo-submit) DOES NOT reload the page (window sentinel 'preserved' survives); RatingForm appears inline immediately (AUTH_CHANGED event drives useAuthUser)",
+    "Submitting all-5 stars via ratings-star-{experience,safety,cost,app}-5 + ratings-submit-btn shows success toast",
+    "IMMEDIATE (~500ms) post-submit: ratings-average-value='5.0', ratings-total-count contains 'Based on 1 verified rating', hero-stat-rating='5.0' — RATINGS_CHANGED event drives all consumers (no reload, no 4s poll)",
+    "IMMEDIATE post-submit: #nosolo-jsonld exists and JSON has aggregateRating.ratingValue='5' and ratingCount='1' — StructuredData reactively updates",
+    "Admin /support unlock with 'Nosolo!23' works; three tabs (Tickets/Locations/Ratings) render",
+    "Locations tab add via loc-add-btn -> loc-form-place/state/country -> loc-form-submit: loc-stat-places=1, loc-stat-countries=1, loc-row-<id> visible immediately",
+    "Landing hero counters reflect 1/1 after navigating back; coverage search 'Manali' shows match with full 'Manali, Himachal Pradesh, India'",
+    "Delete via loc-delete-<id> -> loc-delete-confirm dialog decrements counters to 0",
+    "After delete: landing hero back to 0/0 and coverage search 'Manali' shows 'Not on NoSolo yet'",
+    "Ratings admin tab renders (Overall / Total labels present)"
+  ],
+  "failed": [],
+  "critical_code_review_comments": [
+    "lib/events.js is a clean, minimal EventTarget-based bus — good choice; all subscribe/unsubscribe wiring in useRatingsSummary / useCoverage / useAuthUser correctly returns cleanup fns.",
+    "Consider also emitting RATINGS_CHANGED once on app boot from a top-level provider so that a race between initial fetch and first mount is impossible (not observed as a bug — just defensive).",
+    "lib/locations.countStats still keys uniqueness on 'place|country' only (state ignored) — carried over from iteration_2, still a minor data-quality concern for cities with same name across states.",
+    "Admin password gate remains client-side ADMIN_PASSWORD constant — fine for MVP, but should not ship to production as-is."
+  ],
+  "test_report_links": [],
+  "action_items": [],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A", "frontend": "100% (15/15 checks in this iteration)"},
+  "test_credentials": "Admin password: Nosolo!23. Demo sign-in accepts any name + valid-format email.",
+  "seed_data_creation": "Ephemeral browser localStorage only (nosolo_ratings_stub, nosolo_locations_stub, nosolo_authed_user_stub); cleared between scenarios and at end.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "All 3 immediacy fixes verified. The pub/sub bus (lib/events.js) drives RATINGS_CHANGED, LOCATIONS_CHANGED, AUTH_CHANGED. Delete flow uses a confirm dialog (loc-delete-confirm / loc-delete-cancel), NOT window.confirm — remember to click the confirm testid, not rely on page.on('dialog').",
+  "rca of the issue": "N/A — all issues from iteration_2 are resolved. Root cause of prior latency (separate useRatingsSummary hook instances polling independently) is fixed by having submitRating/addLocation/deleteLocation/signInDemo/signOutUser emit CustomEvents on a shared EventTarget bus that every consumer hook subscribes to in useEffect."
+}
