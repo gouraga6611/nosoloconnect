@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { ArrowRight, MoveDown } from "lucide-react";
-import { HERO } from "@/constants/strings";
+import { HERO, APP_STORES } from "@/constants/strings";
 import { TID } from "@/constants/testIds";
+import AppStoreBadges from "@/components/site/AppStoreBadges";
 
 const HERO_IMAGE =
   "https://images.pexels.com/photos/562623/pexels-photo-562623.jpeg";
@@ -78,9 +79,21 @@ export const Hero = () => {
           </motion.div>
 
           <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="mt-8"
+          >
+            <p className="text-xs uppercase tracking-[0.2em] text-slate-300 mb-3">
+              {APP_STORES.heading}
+            </p>
+            <AppStoreBadges variant="dark" />
+          </motion.div>
+
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            transition={{ duration: 0.8, delay: 0.7 }}
             className="mt-16 grid grid-cols-3 max-w-xl gap-4"
           >
             {HERO.stats.map((s) => (

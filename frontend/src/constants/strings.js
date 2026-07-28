@@ -6,6 +6,22 @@ export const BRAND = {
   copyright: "© 2026 NoSolo. All rights reserved.",
 };
 
+export const APP_STORES = {
+  heading: "Coming soon on",
+  playStore: {
+    label: "GET IT ON",
+    name: "Google Play",
+    url: "https://play.google.com/store/search?q=nosolo&c=apps",
+    ariaLabel: "Download NoSolo on Google Play",
+  },
+  appStore: {
+    label: "Download on the",
+    name: "App Store",
+    url: "https://apps.apple.com/search?term=nosolo",
+    ariaLabel: "Download NoSolo on the App Store",
+  },
+};
+
 export const NAV = {
   home: "Home",
   features: "Features",

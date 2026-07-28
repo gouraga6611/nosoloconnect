@@ -7,6 +7,10 @@ export const TID = {
   navContact: "nav-contact-link",
   navCta: "nav-cta-button",
 
+  // App store badges
+  playStoreBadge: "playstore-badge",
+  appStoreBadge: "appstore-badge",
+
   // Hero
   heroPrimaryCta: "hero-primary-cta",
   heroSecondaryCta: "hero-secondary-cta",
