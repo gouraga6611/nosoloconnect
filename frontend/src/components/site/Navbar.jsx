@@ -41,20 +41,11 @@ export const Navbar = () => {
           <NavLink testId={TID.navFeatures} sectionId="features">
             {NAV.features}
           </NavLink>
-          <NavLink testId={TID.navSafety} sectionId="safety">
-            {NAV.safety}
-          </NavLink>
           <NavLink testId={TID.navCoverage} sectionId="coverage">
             {NAV.coverage}
           </NavLink>
-          <NavLink testId={TID.navRatings} sectionId="ratings">
-            {NAV.ratings}
-          </NavLink>
           <NavLink testId={TID.navAbout} sectionId="about">
             {NAV.about}
-          </NavLink>
-          <NavLink testId={TID.navContact} sectionId="contact">
-            {NAV.contact}
           </NavLink>
         </nav>
 
