@@ -1,0 +1,31 @@
+{
+  "summary": "Full frontend E2E of NoSolo landing page + /support admin console. Submitted a ticket end-to-end, verified localStorage persistence (nosolo_tickets_stub), password gate flow (wrong+right), admin table row rendering, view details dialog, close/reopen/delete-cancel actions, search empty-state, session persistence across reload, and lock console. All 15 targeted checks passed.",
+  "tested_scope": ["frontend", "integration"],
+  "passed": [
+    "Landing page loads with 'Travel Solo.' hero and tagline",
+    "Nav links (Features/Safety/About/Feedback & Support) visible; contact link scrolls to contact-section",
+    "Empty-form and invalid-email submissions do NOT persist a ticket (validation blocks submit) — verified by localStorage remaining empty until valid submit",
+    "Valid form submission persists ticket to localStorage key 'nosolo_tickets_stub' with all fields (name/email/phone/type=bug/priority=high/subject/message/status=open)",
+    "Success toast appears: 'Thanks — message received / We usually reply within one working day.'",
+    "/support shows password gate dialog (Restricted area) immediately",
+    "Wrong password shows 'Incorrect password.' via admin-gate-error",
+    "Correct password 'Nosolo!23' unlocks and reveals admin-tickets-table",
+    "Submitted ticket appears as row with matching id",
+    "View (eye) icon opens admin-details-dialog containing subject and full message",
+    "Close (check) icon flips ticket to Closed; reopen (RotateCcw) button appears",
+    "Reopen flips back to Open; close button re-appears",
+    "Delete opens confirm alert-dialog; cancelling keeps the row",
+    "Search with non-matching term shows admin-empty-state",
+    "Session persists across page reload (no gate shown after reload)",
+    "Lock console button clears session and re-shows the password gate"
+  ],
+  "failed": [],
+  "notes": [
+    "Inline validation error text was not captured by generic error selectors, but validation is functionally correct — invalid submissions did not persist tickets to localStorage. Not a blocker.",
+    "Firebase is intentionally stubbed via localStorage (FIREBASE_CONFIG has REPLACE_* placeholders) — MOCKED per user choice."
+  ],
+  "action_items": [],
+  "success_rate": {"backend": "N/A (no backend)", "frontend": "100%"},
+  "retest_needed": false,
+  "full_testing_deferred": true
+}

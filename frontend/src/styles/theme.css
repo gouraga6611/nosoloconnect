@@ -1,0 +1,177 @@
+/* NoSolo global theme — single source of visual truth.
+   Split across a small number of files if it grows; keep intent in one place. */
+
+@import url("https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap");
+
+:root {
+  --nosolo-navy: #0a192f;
+  --nosolo-navy-soft: #112240;
+  --nosolo-sky: #0ea5e9;
+  --nosolo-sky-soft: #e0f2fe;
+  --nosolo-green: #10b981;
+  --nosolo-cream: #f8fafc;
+  --nosolo-line: rgba(10, 25, 47, 0.08);
+}
+
+html,
+body,
+#root {
+  background: var(--nosolo-cream);
+  color: var(--nosolo-navy);
+  font-family: "Manrope", ui-sans-serif, system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: "Cabinet Grotesk", "Manrope", ui-sans-serif, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.text-navy {
+  color: var(--nosolo-navy);
+}
+.text-navy-soft {
+  color: rgba(10, 25, 47, 0.7);
+}
+.bg-navy {
+  background-color: var(--nosolo-navy);
+}
+.bg-cream {
+  background-color: var(--nosolo-cream);
+}
+.text-sky-brand {
+  color: var(--nosolo-sky);
+}
+.bg-sky-brand {
+  background-color: var(--nosolo-sky);
+}
+.bg-sky-soft {
+  background-color: var(--nosolo-sky-soft);
+}
+.text-green-brand {
+  color: var(--nosolo-green);
+}
+.bg-green-brand {
+  background-color: var(--nosolo-green);
+}
+
+.nosolo-nav {
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  background: rgba(255, 255, 255, 0.78);
+  border-bottom: 1px solid var(--nosolo-line);
+}
+
+.nosolo-btn-primary {
+  background: var(--nosolo-navy);
+  color: #fff;
+  border-radius: 9999px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition:
+    background-color 200ms ease,
+    transform 200ms ease;
+}
+.nosolo-btn-primary:hover {
+  background: #001126;
+  transform: translateY(-1px);
+}
+
+.nosolo-btn-ghost {
+  color: var(--nosolo-navy);
+  border: 1px solid var(--nosolo-line);
+  border-radius: 9999px;
+  padding: 0.7rem 1.4rem;
+  font-weight: 500;
+  background: #fff;
+  transition:
+    border-color 200ms ease,
+    background-color 200ms ease;
+}
+.nosolo-btn-ghost:hover {
+  border-color: var(--nosolo-navy);
+  background: #fff;
+}
+
+.nosolo-card {
+  background: #fff;
+  border: 1px solid var(--nosolo-line);
+  border-radius: 20px;
+  transition:
+    transform 250ms ease,
+    border-color 200ms ease,
+    box-shadow 250ms ease;
+}
+.nosolo-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(14, 165, 233, 0.4);
+  box-shadow: 0 12px 30px -18px rgba(10, 25, 47, 0.25);
+}
+
+.nosolo-section {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+@media (min-width: 1024px) {
+  .nosolo-section {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+}
+
+.nosolo-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--nosolo-sky);
+}
+
+.nosolo-heading {
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--nosolo-navy);
+  line-height: 1.05;
+}
+
+.nosolo-input:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.35);
+  border-color: var(--nosolo-sky);
+}
+
+.nosolo-hero-overlay {
+  background: linear-gradient(
+    100deg,
+    rgba(10, 25, 47, 0.85) 0%,
+    rgba(10, 25, 47, 0.55) 55%,
+    rgba(10, 25, 47, 0.15) 100%
+  );
+}
+
+.nosolo-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: var(--nosolo-green);
+  display: inline-block;
+}
+
+/* Marquee-ish audience list */
+.nosolo-audience-pill {
+  border: 1px solid var(--nosolo-line);
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+  background: #fff;
+  color: var(--nosolo-navy);
+  font-weight: 500;
+  font-size: 0.85rem;
+  transition:
+    border-color 200ms ease,
+    color 200ms ease;
+}
+.nosolo-audience-pill:hover {
+  border-color: var(--nosolo-sky);
+  color: var(--nosolo-sky);
+}
