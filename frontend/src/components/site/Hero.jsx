@@ -1,9 +1,5 @@
 // ============================================================================
-// Hero.jsx — Landing hero with live stats:
-//   * "places covered" and "countries covered" from lib/locations
-//   * "community rating" from lib/ratings aggregate
-// Values gracefully fall back to placeholder characters when nothing is
-// available yet.
+// Hero.jsx — Landing hero with live "places / countries covered" stats.
 // ============================================================================
 
 import { motion } from "framer-motion";
@@ -12,7 +8,6 @@ import { HERO, APP_STORES } from "@/constants/strings";
 import { TID } from "@/constants/testIds";
 import AppStoreBadges from "@/components/site/AppStoreBadges";
 import { useCoverage } from "@/hooks/useCoverage";
-import { useRatingsSummary } from "@/hooks/useRatingsSummary";
 
 const HERO_IMAGE =
   "https://images.pexels.com/photos/562623/pexels-photo-562623.jpeg";
@@ -22,7 +17,6 @@ const scrollTo = (id) => {
   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
 };
 
-// Render helper — dynamic stats cell
 const StatCell = ({ testId, value, label }) => (
   <div className="text-white">
     <div
@@ -39,7 +33,6 @@ const StatCell = ({ testId, value, label }) => (
 
 export const Hero = () => {
   const { places, countries } = useCoverage();
-  const { averageOverall, count } = useRatingsSummary();
 
   return (
     <section id="top" className="relative">
@@ -122,7 +115,7 @@ export const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.7 }}
-            className="mt-16 grid grid-cols-3 max-w-xl gap-4"
+            className="mt-16 grid grid-cols-2 max-w-md gap-4"
           >
             <StatCell
               testId={TID.heroStatPlaces}
@@ -133,11 +126,6 @@ export const Hero = () => {
               testId={TID.heroStatCountries}
               value={countries || HERO.stats.zeroFallback}
               label={HERO.stats.countriesLabel}
-            />
-            <StatCell
-              testId={TID.heroStatRating}
-              value={count === 0 ? HERO.stats.ratingFallback : averageOverall.toFixed(1)}
-              label={HERO.stats.ratingLabel}
             />
           </motion.div>
         </div>

@@ -1,9 +1,9 @@
 // ============================================================================
 // LandingPage.jsx — Composes the full public landing:
-//   Navbar → Hero → Features → Safety → Coverage search → Ratings → About →
+//   Navbar → Hero → Features → Safety → Coverage search → About →
 //   Contact form → Footer
 // StructuredData is a headless component that injects Schema.org JSON-LD so
-// Google can display the community rating as a rich snippet.
+// Google can index the app.
 // ============================================================================
 
 import Navbar from "@/components/site/Navbar";
@@ -11,7 +11,6 @@ import Hero from "@/components/site/Hero";
 import Features from "@/components/site/Features";
 import Safety from "@/components/site/Safety";
 import CoverageSearch from "@/components/site/CoverageSearch";
-import RatingsSection from "@/components/site/RatingsSection";
 import About from "@/components/site/About";
 import Footer from "@/components/site/Footer";
 import StructuredData from "@/components/site/StructuredData";
@@ -55,7 +54,6 @@ export const LandingPage = () => {
         <Features />
         <Safety />
         <CoverageSearch />
-        <RatingsSection />
         <About />
         <ContactSection />
       </main>

@@ -19,15 +19,12 @@ export const ADMIN_SESSION_KEY = "nosolo_admin_unlocked";
 // ------------------------------
 export const LOCAL_STORAGE_TICKETS_KEY = "nosolo_tickets_stub";
 export const LOCAL_STORAGE_LOCATIONS_KEY = "nosolo_locations_stub";
-export const LOCAL_STORAGE_RATINGS_KEY = "nosolo_ratings_stub";
-export const LOCAL_STORAGE_AUTH_USER_KEY = "nosolo_authed_user_stub";
 
 // ------------------------------
 // Firestore collection names (real Firestore + stub both)
 // ------------------------------
 export const FIRESTORE_TICKETS_COLLECTION = "tickets";
 export const FIRESTORE_LOCATIONS_COLLECTION = "locations";
-export const FIRESTORE_RATINGS_COLLECTION = "ratings";
 
 // ------------------------------
 // Ticket options
@@ -51,16 +48,6 @@ export const TICKET_STATUS = { OPEN: "open", CLOSED: "closed" };
 export const TICKET_STATUS_OPTIONS = [
   { value: TICKET_STATUS.OPEN, label: "Open" },
   { value: TICKET_STATUS.CLOSED, label: "Closed" },
-];
-
-// ------------------------------
-// Rating dimensions collected from every verified user
-// ------------------------------
-export const RATING_DIMENSIONS = [
-  { key: "experience", label: "Experience", helper: "Overall trip vibe" },
-  { key: "safety", label: "Safety", helper: "Verification & trust" },
-  { key: "cost", label: "Cost / Value", helper: "Bang for the buck" },
-  { key: "app", label: "App Quality", helper: "How the app performed" },
 ];
 
 // ------------------------------

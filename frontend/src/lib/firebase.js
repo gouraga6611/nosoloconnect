@@ -10,7 +10,6 @@
 
 import { initializeApp, getApps } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { FIREBASE_CONFIG } from "@/constants/config";
 
 const isConfigured = !Object.values(FIREBASE_CONFIG).some(
@@ -19,15 +18,11 @@ const isConfigured = !Object.values(FIREBASE_CONFIG).some(
 
 let app = null;
 let db = null;
-let auth = null;
-let googleProvider = null;
 
 if (isConfigured) {
   app = getApps()[0] || initializeApp(FIREBASE_CONFIG);
   db = getFirestore(app);
-  auth = getAuth(app);
-  googleProvider = new GoogleAuthProvider();
 }
 
 export const firebaseEnabled = isConfigured;
-export { app, db, auth, googleProvider };
+export { app, db };

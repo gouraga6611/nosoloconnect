@@ -6,10 +6,8 @@
 const bus = new EventTarget();
 
 export const EVENTS = {
-  RATINGS_CHANGED: "ratings:changed",
   LOCATIONS_CHANGED: "locations:changed",
   TICKETS_CHANGED: "tickets:changed",
-  AUTH_CHANGED: "auth:changed",
 };
 
 export const emit = (name, detail) =>

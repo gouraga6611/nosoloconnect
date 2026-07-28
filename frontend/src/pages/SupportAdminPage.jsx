@@ -1,8 +1,7 @@
 // ============================================================================
 // SupportAdminPage.jsx — Thin shell for the /support console.
 //   * Password gate (PasswordGate) — locks with ADMIN_PASSWORD.
-//   * Tabs: Tickets · Locations · Ratings — each in its own file for
-//     readability & smaller diff surface area on future changes.
+//   * Tabs: Tickets · Locations — each in its own file for readability.
 // ============================================================================
 
 import { useEffect, useState } from "react";
@@ -17,7 +16,6 @@ import {
 import PasswordGate from "@/components/admin/PasswordGate";
 import TicketsTab from "@/components/admin/tabs/TicketsTab";
 import LocationsTab from "@/components/admin/tabs/LocationsTab";
-import RatingsTab from "@/components/admin/tabs/RatingsTab";
 import { ADMIN, BRAND } from "@/constants/strings";
 import { ADMIN_SESSION_KEY } from "@/constants/config";
 import { TID } from "@/constants/testIds";
@@ -92,12 +90,6 @@ export const SupportAdminPage = () => {
                 >
                   {ADMIN.tabs.locations}
                 </TabsTrigger>
-                <TabsTrigger
-                  data-testid={TID.adminTabRatings}
-                  value="ratings"
-                >
-                  {ADMIN.tabs.ratings}
-                </TabsTrigger>
               </TabsList>
 
               <TabsContent value="tickets">
@@ -105,9 +97,6 @@ export const SupportAdminPage = () => {
               </TabsContent>
               <TabsContent value="locations">
                 <LocationsTab />
-              </TabsContent>
-              <TabsContent value="ratings">
-                <RatingsTab />
               </TabsContent>
             </Tabs>
           </main>

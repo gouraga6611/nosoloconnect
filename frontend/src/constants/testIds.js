@@ -7,11 +7,8 @@ export const TID = {
   // --- Nav ---
   navHome: "nav-home-link",
   navFeatures: "nav-features-link",
-  navSafety: "nav-safety-link",
   navAbout: "nav-about-link",
   navCoverage: "nav-coverage-link",
-  navRatings: "nav-ratings-link",
-  navContact: "nav-contact-link",
   navCta: "nav-cta-button",
 
   // --- App store badges ---
@@ -23,25 +20,11 @@ export const TID = {
   heroSecondaryCta: "hero-secondary-cta",
   heroStatPlaces: "hero-stat-places",
   heroStatCountries: "hero-stat-countries",
-  heroStatRating: "hero-stat-rating",
 
   // --- Coverage search (landing) ---
   coverageInput: "coverage-search-input",
   coverageResult: "coverage-search-result",
   coverageMatchItem: (id) => `coverage-match-${id}`,
-
-  // --- Ratings (landing) ---
-  ratingsSection: "ratings-section",
-  ratingsSignInBtn: "ratings-signin-btn",
-  ratingsSignOutBtn: "ratings-signout-btn",
-  ratingsDemoName: "ratings-demo-name",
-  ratingsDemoEmail: "ratings-demo-email",
-  ratingsDemoSubmit: "ratings-demo-submit",
-  ratingsSubmitBtn: "ratings-submit-btn",
-  ratingsComment: "ratings-comment-input",
-  ratingsStar: (dim, star) => `ratings-star-${dim}-${star}`,
-  ratingsAverage: "ratings-average-value",
-  ratingsCount: "ratings-total-count",
 
   // --- Contact form ---
   contactSection: "contact-section",
@@ -64,7 +47,6 @@ export const TID = {
   adminLogout: "admin-logout-button",
   adminTabTickets: "admin-tab-tickets",
   adminTabLocations: "admin-tab-locations",
-  adminTabRatings: "admin-tab-ratings",
 
   // --- Admin: Tickets tab ---
   adminSearch: "admin-search-input",

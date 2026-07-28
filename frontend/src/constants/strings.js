@@ -39,11 +39,8 @@ export const APP_STORES = {
 export const NAV = {
   home: "Home",
   features: "Features",
-  safety: "Safety",
-  about: "About",
   coverage: "Coverage",
-  ratings: "Ratings",
-  contact: "Feedback & Support",
+  about: "About",
   cta: "Share your feedback",
 };
 
@@ -121,40 +118,6 @@ export const COVERAGE = {
 };
 
 // -----------------------------
-// Ratings section (landing) — sign in with Google → submit multi-dimension rating
-// -----------------------------
-export const RATINGS = {
-  eyebrow: "Community verified",
-  heading: "Rate your NoSolo experience",
-  intro:
-    "Ratings are collected from Google-verified travelers only. They power the community score you see in Google search results.",
-  dimensionsCopy: "Rate us across the things that matter",
-  signInPrompt: "Sign in with Google to submit your rating",
-  signInBtn: "Continue with Google",
-  submitBtn: "Submit rating",
-  submittingBtn: "Submitting…",
-  signOutBtn: "Sign out",
-  commentLabel: "Add a short note (optional)",
-  commentPh: "Tell us what stood out — the trip, your companion, the app…",
-  successToastTitle: "Thanks for rating!",
-  successToastDesc: "Your community rating is now live.",
-  errorToastTitle: "Could not submit",
-  errorToastDesc: "Please try again in a moment.",
-  alreadyRated: "You have already rated. Thanks for supporting NoSolo!",
-  averageOf: (n) => `Based on ${n} verified rating${n === 1 ? "" : "s"}`,
-  breakdownTitle: "Breakdown",
-  needSignIn: "Sign in to leave a rating",
-  demoNoteTitle: "Demo sign-in",
-  demoNoteDesc:
-    "Firebase Auth is not configured yet — we'll capture your name + email locally so the flow works end-to-end.",
-  demoName: "Name",
-  demoEmail: "Email",
-  demoSubmit: "Continue",
-  demoNameError: "Please enter your name.",
-  demoEmailError: "Please enter a valid email.",
-};
-
-// -----------------------------
 // About
 // -----------------------------
 export const ABOUT = {
@@ -228,11 +191,10 @@ export const ADMIN = {
   gateSubmit: "Unlock",
   gateWrong: "Incorrect password.",
   pageTitle: "Feedback & Support Console",
-  pageSubtitle: "View, close and delete tickets. Manage locations and ratings.",
+  pageSubtitle: "View, close and delete tickets. Manage locations.",
   tabs: {
     tickets: "Tickets",
     locations: "Locations",
-    ratings: "Ratings",
   },
   searchPlaceholder: "Search by name, email, subject…",
   filterStatusAll: "All statuses",
@@ -313,25 +275,4 @@ export const LOCATIONS_ADMIN = {
     placesTitle: "Places",
     countriesTitle: "Countries",
   },
-};
-
-// -----------------------------
-// Admin — Ratings tab (read-only summary)
-// -----------------------------
-export const RATINGS_ADMIN = {
-  title: "Community ratings",
-  subtitle:
-    "Read-only summary of ratings submitted by Google-verified travelers.",
-  overallTitle: "Overall rating",
-  totalTitle: "Total ratings",
-  breakdownTitle: "Dimension breakdown",
-  latestTitle: "Latest 10 ratings",
-  columns: {
-    when: "When",
-    user: "User",
-    overall: "Overall",
-    comment: "Note",
-  },
-  emptyTitle: "No ratings yet",
-  emptySubtitle: "Ratings from verified users will appear here.",
 };
