@@ -1,13 +1,25 @@
+// ============================================================================
+// LandingPage.jsx — Composes the full public landing:
+//   Navbar → Hero → Features → Safety → Coverage search → Ratings → About →
+//   Contact form → Footer
+// StructuredData is a headless component that injects Schema.org JSON-LD so
+// Google can display the community rating as a rich snippet.
+// ============================================================================
+
 import Navbar from "@/components/site/Navbar";
 import Hero from "@/components/site/Hero";
 import Features from "@/components/site/Features";
 import Safety from "@/components/site/Safety";
+import CoverageSearch from "@/components/site/CoverageSearch";
+import RatingsSection from "@/components/site/RatingsSection";
 import About from "@/components/site/About";
 import Footer from "@/components/site/Footer";
+import StructuredData from "@/components/site/StructuredData";
 import FeedbackSupportForm from "@/components/forms/FeedbackSupportForm";
 import { CONTACT } from "@/constants/strings";
 import { TID } from "@/constants/testIds";
 
+// Contact block is small enough to co-locate here since it's landing-only.
 const ContactSection = () => (
   <section
     id="contact"
@@ -36,11 +48,14 @@ const ContactSection = () => (
 export const LandingPage = () => {
   return (
     <div className="min-h-screen bg-cream">
+      <StructuredData />
       <Navbar />
       <main>
         <Hero />
         <Features />
         <Safety />
+        <CoverageSearch />
+        <RatingsSection />
         <About />
         <ContactSection />
       </main>

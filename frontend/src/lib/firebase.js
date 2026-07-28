@@ -1,8 +1,16 @@
-// Firebase initialisation with graceful stub fallback.
-// If FIREBASE_CONFIG still contains placeholder values, we skip real init and
-// use a localStorage-backed store so the UI is fully functional locally.
-import { initializeApp } from "firebase/app";
+// ============================================================================
+// firebase.js — Initialises Firebase App, Firestore and Auth exactly once.
+//   * If FIREBASE_CONFIG still holds any "REPLACE_*" placeholder, the app runs
+//     in STUB mode: `firebaseEnabled` is false and every storage/auth helper
+//     falls back to localStorage. This lets the UI be fully functional locally
+//     without a real Firebase project.
+//   * The moment real values are pasted into config.js, everything switches
+//     automatically to Firestore + Firebase Auth (Google popup).
+// ============================================================================
+
+import { initializeApp, getApps } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { FIREBASE_CONFIG } from "@/constants/config";
 
 const isConfigured = !Object.values(FIREBASE_CONFIG).some(
@@ -11,11 +19,15 @@ const isConfigured = !Object.values(FIREBASE_CONFIG).some(
 
 let app = null;
 let db = null;
+let auth = null;
+let googleProvider = null;
 
 if (isConfigured) {
-  app = initializeApp(FIREBASE_CONFIG);
+  app = getApps()[0] || initializeApp(FIREBASE_CONFIG);
   db = getFirestore(app);
+  auth = getAuth(app);
+  googleProvider = new GoogleAuthProvider();
 }
 
 export const firebaseEnabled = isConfigured;
-export { app, db };
+export { app, db, auth, googleProvider };

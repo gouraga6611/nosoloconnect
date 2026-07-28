@@ -1,0 +1,70 @@
+{
+  "summary": "Frontend E2E for NoSolo v2 (Coverage, Ratings, Locations, StructuredData, admin tabs). 30/33 checks passed. Core happy-path is working end-to-end: demo Google sign-in stub → submit 5-star ratings → localStorage persists → hero rating updates to 5.0 on reload → admin ratings tab shows overall 5.0 with the test user row. Locations flow works fully: admin add 'Manali/HP/India' → localStorage persists → stats +1/+1 → landing coverage search finds it → landing hero counters show 1/1 → delete decrements counters. Nav, hero fallbacks (0/0/—), coverage <2char hint and 'Not on NoSolo yet' unavailable state, admin gate, tab switching, and prior ticket flow all pass. 3 minor UI refresh timing failures documented below.",
+  "tested_scope": ["frontend", "integration"],
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "RatingsSection > RatingsSummaryCard",
+        "issue": "After a user submits a rating, the on-screen summary card ('/ 5' number and 'Based on N verified ratings') does NOT refresh immediately. It only picks up the new value on next 4-second setInterval tick or on page reload. This is because RatingsSummaryCard instantiates its own useRatingsSummary() hook and the parent RatingsSection's onSubmitted->refreshSummary refreshes the parent's separate hook instance, not the card's. Observed: right after submit avg still shows '—' and count 'Based on 0 verified ratings' even though localStorage has the row.",
+        "selector": "[data-testid='ratings-average-value']",
+        "priority": "MEDIUM"
+      },
+      {
+        "component": "StructuredData JSON-LD",
+        "issue": "After submitting a rating and reloading /, the hero stat correctly shows '5.0' but the document.getElementById('nosolo-jsonld') script tag can still be missing the aggregateRating object at first paint (race between StructuredData's own useRatingsSummary hook instance and useEffect flush). Since Google will crawl the rendered page this may or may not matter, but the aggregate JSON-LD should be produced deterministically once ratings exist. Recommend: (a) share a single ratings-summary context/singleton instead of per-component hook instances, or (b) have StructuredData listen for 'ratings updated' events and update synchronously.",
+        "selector": "#nosolo-jsonld",
+        "priority": "MEDIUM"
+      }
+    ],
+    "integration_issues": [
+      {
+        "flow": "Rating submit → live UI refresh",
+        "issue": "Multiple sibling components (Hero, RatingsSummaryCard, StructuredData, RatingsTab) each call useRatingsSummary() independently and only refresh via their own useEffect on mount + 4s polling in one place. Same class of latency bug will appear anywhere the summary is consumed. Consider a shared context or a lightweight event-emitter in lib/ratings.js so submitRating() can broadcast an update.",
+        "affected_selectors": ["[data-testid='ratings-average-value']", "[data-testid='ratings-total-count']", "#nosolo-jsonld"]
+      }
+    ],
+    "design_issues": []
+  },
+  "passed": [
+    "Landing loads, all nav links (Features/Safety/Coverage/Ratings/About/Feedback&Support) present",
+    "Initial hero stats show 0 / 0 / — as expected when no data",
+    "JSON-LD script tag present with @type=MobileApplication, and NO aggregateRating when count=0",
+    "Coverage search: <2 chars shows hint; unknown location shows 'Not on NoSolo yet' after 220ms debounce",
+    "Ratings sign-in in stub mode opens demo dialog; submitting valid name+email reloads page and returns user signed in",
+    "RatingForm renders with 4 dimensions; setting all to 5 stars and submitting persists to nosolo_ratings_stub with dimensions={experience:5,safety:5,cost:5,app:5}, overall=5, provider='demo'",
+    "After reload with rating present, hero-stat-rating shows 5.0",
+    "Admin gate accepts 'Nosolo!23'; three tabs (Tickets/Locations/Ratings) are present",
+    "Locations tab: Add dialog works, submits to nosolo_locations_stub, loc-stat-places=1, loc-stat-countries=1, row rendered with correct data-testid",
+    "Landing coverage search for 'Manali' shows '1 match found — you\\'re covered' with full 'Manali, Himachal Pradesh, India' line; hero counters show 1/1",
+    "Admin Ratings tab: Overall shows 5.0, table row shows test user email",
+    "Delete location with confirm decrements counters to 0"
+  ],
+  "failed": [
+    "RatingsSummaryCard on landing does not update immediately after submit (still shows '—' / 'Based on 0 verified ratings' at 500ms)",
+    "Hero-stat-count on same in-page check reads 0 immediately after submit (updates only on reload)",
+    "JSON-LD aggregateRating not present at first read after page reload (should be deterministic once localStorage has ratings)"
+  ],
+  "critical_code_review_comments": [
+    "useRatingsSummary is instantiated separately in Hero, RatingsSummaryCard, StructuredData, RatingsTab — each fetches independently. Move to a React context provider OR emit a custom event from submitRating() so all consumers refresh together.",
+    "RatingsSummaryCard's setInterval(refresh, 4000) is a wasteful polling pattern used to hide the real refresh gap; remove once a proper pub/sub is in place.",
+    "RatingsSection.handleDemoSubmit uses window.location.reload() to refresh auth state. Works, but produces the observable flash and defeats SPA UX. Prefer setting user state via subscribeAuth callback so no reload is needed.",
+    "lib/firebase.js: firebaseEnabled is decided once at module load. If real config is pasted at runtime it won't kick in without reload — fine, but document this behavior.",
+    "lib/locations.countStats: place uniqueness is done by lowercased 'place|country'. State is ignored, so 'Springfield, IL, USA' vs 'Springfield, MA, USA' would collapse. Consider including state in the key.",
+    "StructuredData writes JSON.stringify(payload) with count.toString() — schema.org accepts numbers too, but string is fine. Missing 'reviewCount' or a 'itemReviewed' wrapper — MobileApplication with direct aggregateRating is OK for Google though.",
+    "Consider hardening admin password gate — client-side ADMIN_PASSWORD constant is visible in bundle. Fine for MVP, flag for production."
+  ],
+  "test_report_links": [],
+  "action_items": [
+    "Fix RatingsSummaryCard/StructuredData not updating in real time after a rating submit. Recommended: single ratings summary context OR a small event-emitter in lib/ratings.js that submitRating() fires and useRatingsSummary subscribes to.",
+    "Remove the setInterval poll in RatingsSummaryCard once the event-driven refresh is in place."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A", "frontend": "91% (30/33)"},
+  "test_credentials": "Admin password: Nosolo!23 (from constants/config.js). Demo sign-in in stub mode: any name + valid-format email.",
+  "seed_data_creation": "Test created and then deleted a location 'Manali/Himachal Pradesh/India' and submitted one 5-star rating from 'Test User <test@example.com>'. Data lives in browser localStorage only; a fresh browser context starts clean.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Firebase remains stubbed (REPLACE_* placeholders in FIREBASE_CONFIG). All data persists to localStorage keys nosolo_tickets_stub / nosolo_locations_stub / nosolo_ratings_stub / nosolo_authed_user_stub. Clear localStorage between sub-scenarios. Coverage search debounce is 220ms. RatingsSection triggers window.location.reload() after demo sign-in — make sure Playwright waits for load state after clicking ratings-demo-submit.",
+  "rca of the issue": "Three sibling React components each call useRatingsSummary() which owns its own useState + fetch, so a submit in one component does not propagate to the others. RatingsSection tries to refresh a parent instance but the visible RatingsSummaryCard has a different instance. StructuredData has yet another. Fix: lift to a React context provider whose refresh is fired by submitRating(), OR make submitRating() dispatch a window CustomEvent that useRatingsSummary listens to."
+}

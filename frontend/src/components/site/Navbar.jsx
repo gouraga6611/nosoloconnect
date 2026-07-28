@@ -1,3 +1,8 @@
+// ============================================================================
+// Navbar.jsx — Sticky top navigation for the landing page.
+// Each link smooth-scrolls to a section id.
+// ============================================================================
+
 import { Compass } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BRAND, NAV } from "@/constants/strings";
@@ -7,6 +12,17 @@ const scrollTo = (id) => {
   const el = document.getElementById(id);
   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
 };
+
+// Reusable nav link
+const NavLink = ({ testId, sectionId, children }) => (
+  <button
+    data-testid={testId}
+    onClick={() => scrollTo(sectionId)}
+    className="text-navy-soft hover:text-navy transition-colors"
+  >
+    {children}
+  </button>
+);
 
 export const Navbar = () => {
   return (
@@ -22,34 +38,24 @@ export const Navbar = () => {
         </button>
 
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-          <button
-            data-testid={TID.navFeatures}
-            onClick={() => scrollTo("features")}
-            className="text-navy-soft hover:text-navy transition-colors"
-          >
+          <NavLink testId={TID.navFeatures} sectionId="features">
             {NAV.features}
-          </button>
-          <button
-            data-testid={TID.navSafety}
-            onClick={() => scrollTo("safety")}
-            className="text-navy-soft hover:text-navy transition-colors"
-          >
+          </NavLink>
+          <NavLink testId={TID.navSafety} sectionId="safety">
             {NAV.safety}
-          </button>
-          <button
-            data-testid={TID.navAbout}
-            onClick={() => scrollTo("about")}
-            className="text-navy-soft hover:text-navy transition-colors"
-          >
+          </NavLink>
+          <NavLink testId={TID.navCoverage} sectionId="coverage">
+            {NAV.coverage}
+          </NavLink>
+          <NavLink testId={TID.navRatings} sectionId="ratings">
+            {NAV.ratings}
+          </NavLink>
+          <NavLink testId={TID.navAbout} sectionId="about">
             {NAV.about}
-          </button>
-          <button
-            data-testid={TID.navContact}
-            onClick={() => scrollTo("contact")}
-            className="text-navy-soft hover:text-navy transition-colors"
-          >
+          </NavLink>
+          <NavLink testId={TID.navContact} sectionId="contact">
             {NAV.contact}
-          </button>
+          </NavLink>
         </nav>
 
         <Button

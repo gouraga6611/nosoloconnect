@@ -1,8 +1,37 @@
-// Non-string configuration constants
+// ============================================================================
+// config.js — Non-string configuration constants.
+//   * Admin gate password
+//   * Options for form selects (types, priorities, statuses)
+//   * Badge className maps (Tailwind)
+//   * Firebase config (placeholder until user pastes real values)
+//   * Firestore collection names + localStorage keys used by the stub layer
+//   * Rating dimensions (used by RatingsSection & aggregation logic)
+// ============================================================================
+
+// ------------------------------
+// Admin gate
+// ------------------------------
 export const ADMIN_PASSWORD = "Nosolo!23";
 export const ADMIN_SESSION_KEY = "nosolo_admin_unlocked";
-export const LOCAL_STORAGE_TICKETS_KEY = "nosolo_tickets_stub";
 
+// ------------------------------
+// localStorage stub keys (used when Firebase is not configured)
+// ------------------------------
+export const LOCAL_STORAGE_TICKETS_KEY = "nosolo_tickets_stub";
+export const LOCAL_STORAGE_LOCATIONS_KEY = "nosolo_locations_stub";
+export const LOCAL_STORAGE_RATINGS_KEY = "nosolo_ratings_stub";
+export const LOCAL_STORAGE_AUTH_USER_KEY = "nosolo_authed_user_stub";
+
+// ------------------------------
+// Firestore collection names (real Firestore + stub both)
+// ------------------------------
+export const FIRESTORE_TICKETS_COLLECTION = "tickets";
+export const FIRESTORE_LOCATIONS_COLLECTION = "locations";
+export const FIRESTORE_RATINGS_COLLECTION = "ratings";
+
+// ------------------------------
+// Ticket options
+// ------------------------------
 export const TICKET_TYPES = [
   { value: "feedback", label: "Feedback" },
   { value: "support", label: "Support" },
@@ -17,16 +46,26 @@ export const TICKET_PRIORITIES = [
   { value: "urgent", label: "Urgent" },
 ];
 
-export const TICKET_STATUS = {
-  OPEN: "open",
-  CLOSED: "closed",
-};
+export const TICKET_STATUS = { OPEN: "open", CLOSED: "closed" };
 
 export const TICKET_STATUS_OPTIONS = [
   { value: TICKET_STATUS.OPEN, label: "Open" },
   { value: TICKET_STATUS.CLOSED, label: "Closed" },
 ];
 
+// ------------------------------
+// Rating dimensions collected from every verified user
+// ------------------------------
+export const RATING_DIMENSIONS = [
+  { key: "experience", label: "Experience", helper: "Overall trip vibe" },
+  { key: "safety", label: "Safety", helper: "Verification & trust" },
+  { key: "cost", label: "Cost / Value", helper: "Bang for the buck" },
+  { key: "app", label: "App Quality", helper: "How the app performed" },
+];
+
+// ------------------------------
+// Tailwind badge className maps
+// ------------------------------
 export const PRIORITY_BADGE = {
   urgent: "bg-red-100 text-red-700 border-red-200",
   high: "bg-orange-100 text-orange-700 border-orange-200",
@@ -46,7 +85,12 @@ export const TYPE_BADGE = {
   suggestion: "bg-emerald-50 text-emerald-700 border-emerald-200",
 };
 
-// Firebase config placeholder — replace with real values before production.
+// ------------------------------
+// Firebase config (client-side).
+// Replace REPLACE_* values with real ones from your Firebase console.
+// When any value still starts with "REPLACE" the app runs in stub mode
+// (localStorage-backed) — see lib/firebase.js.
+// ------------------------------
 export const FIREBASE_CONFIG = {
   apiKey: "REPLACE_WITH_FIREBASE_API_KEY",
   authDomain: "REPLACE.firebaseapp.com",
@@ -56,4 +100,12 @@ export const FIREBASE_CONFIG = {
   appId: "REPLACE_APP_ID",
 };
 
-export const FIRESTORE_TICKETS_COLLECTION = "tickets";
+// ------------------------------
+// Schema.org / SEO — used by StructuredData.jsx
+// ------------------------------
+export const SEO = {
+  siteName: "NoSolo",
+  description:
+    "NoSolo connects verified Indian solo travelers to explore together. Anonymously at first, safely always.",
+  siteUrl: "https://nosolo.app",
+};

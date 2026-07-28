@@ -1,5 +1,10 @@
-// Storage service abstraction — talks to Firestore when configured,
-// otherwise falls back to localStorage so the site remains fully usable.
+// ============================================================================
+// storage.js — Ticket CRUD for the /support console + landing feedback form.
+//
+// Talks to Firestore when configured, else localStorage. Everything else in
+// lib/ (auth, locations, ratings) follows the same pattern for consistency.
+// ============================================================================
+
 import {
   collection,
   addDoc,
@@ -26,9 +31,8 @@ const readLocal = () => {
   }
 };
 
-const writeLocal = (items) => {
+const writeLocal = (items) =>
   localStorage.setItem(LOCAL_STORAGE_TICKETS_KEY, JSON.stringify(items));
-};
 
 const genId = () =>
   `t_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
@@ -39,12 +43,13 @@ export const createTicket = async (payload) => {
     status: TICKET_STATUS.OPEN,
     createdAt: new Date().toISOString(),
   };
-
   if (firebaseEnabled && db) {
-    const ref = await addDoc(collection(db, FIRESTORE_TICKETS_COLLECTION), record);
+    const ref = await addDoc(
+      collection(db, FIRESTORE_TICKETS_COLLECTION),
+      record,
+    );
     return { id: ref.id, ...record };
   }
-
   const items = readLocal();
   const withId = { id: genId(), ...record };
   items.unshift(withId);
@@ -77,6 +82,8 @@ export const updateTicketStatus = async (id, status) => {
     await updateDoc(doc(db, FIRESTORE_TICKETS_COLLECTION, id), { status });
     return;
   }
-  const items = readLocal().map((t) => (t.id === id ? { ...t, status } : t));
+  const items = readLocal().map((t) =>
+    t.id === id ? { ...t, status } : t,
+  );
   writeLocal(items);
 };
